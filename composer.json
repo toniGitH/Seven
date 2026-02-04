@@ -12,11 +12,11 @@
         "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.8",
         "league/commonmark": "^2.6.0",
+        "nesbot/carbon": "^2.72.6",
         "spatie/laravel-permission": "^6.3",
         "symfony/http-foundation": "^6.4.14",
-        "symfony/process": "^6.4.14",
-        "symfony/var-dumper": "^6.4.4",
-        "nesbot/carbon": "^2.72.6"
+        "symfony/process": "^6.4.33",
+        "symfony/var-dumper": "^6.4.4"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",
@@ -25,6 +25,7 @@
         "mockery/mockery": "^1.4.4",
         "nunomaduro/collision": "^7.0",
         "phpunit/phpunit": "^10.5.62",
+        "psy/psysh": "^0.12.19",
         "spatie/laravel-ignition": "^2.0"
     },
     "autoload": {
