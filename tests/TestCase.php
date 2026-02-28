@@ -20,13 +20,16 @@ abstract class TestCase extends BaseTestCase
     // Manually added method to the framework
     private function setUpDatabase(): void
     {
+        // Ensure migrations are run
         Artisan::call('migrate');
-        $clientRepository = app(ClientRepository::class);
-        $clientRepository->createPersonalAccessClient(
-            null,
-            'Personal Access Client',
-            'http://localhost'
-        );
+        
+        // Create Passport personal access client using the official command
+        Artisan::call('passport:client', [
+            '--personal' => true,
+            '--name' => 'Personal Access Client',
+            '--no-interaction' => true,
+        ]);
+        
         $this->seed();
     }
 }
