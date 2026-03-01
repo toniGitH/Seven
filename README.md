@@ -1,66 +1,134 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
-
 <p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+  <img src="public/img/dice.png" alt="Seven Dice Game" width="250">
 </p>
 
-## About Laravel
+# Seven - Juego de Dados API
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Este proyecto es una API REST desarrollada con **Laravel 12**, creada como parte del **Sprint 5** del bootcamp de **FullStack PHP** en **IT Academy (Barcelona Activa)**.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## 🎲 Explicación del proyecto
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+**Seven** es un simulador de un juego de dados que incluye gestión de partidas y estadísticas.
 
-## Learning Laravel
+El núcleo de la lógica se basa en el **número 7**: cuando un jugador realiza un lanzamiento, el sistema genera dos números aleatorios (1-6). Si la suma es exactamente 7, el movimiento se registra como un éxito; de lo contrario, es un fallo.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### 🎭 Funcionalidades clave por rol:
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+##### 👤 Jugadores (Players)
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- **Historial Persistente:** cada lanzamiento queda registrado en la base de datos, almacenando el valor de cada dado y el resultado (ganado/perdido).
+- **Gestión de Carrera:** los jugadores pueden consultar todo su historial de partidas para analizar sus rachas o, si prefieren empezar de cero, tienen la posibilidad de **eliminar todo su historial** de lanzamientos.
+- **Métricas de Rendimiento:** la API calcula en tiempo real el porcentaje de éxito individual del jugador basándose en su historial.
 
-## Laravel Sponsors
+##### 👑 Administradores (Admins)
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+- **Control Total:** acceso a la lista completa de usuarios registrados en el sistema, incluyendo sus porcentajes de éxito actualizados.
+- **Análisis Competitivo (Ranking):** el sistema genera un ranking global que ordena a todos los jugadores por su eficacia.
+- **Hall of Fame & Shame:** consultas rápidas para identificar instantáneamente quién es el **mejor jugador** (el ganador con mayor porcentaje) y quién es el **peor jugador** (el que tiene el porcentaje más bajo) de toda la plataforma.
 
-### Premium Partners
+### 🛡️ Arquitectura de Seguridad
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+El proyecto implementa un sistema de **RBAC (Role-Based Access Control)**. 
 
-## Contributing
+Utiliza **Laravel Passport** para la emisión de tokens JWT seguros tras el login, y los permisos están blindados mediante middleware, asegurando que un jugador solo pueda ver sus propios datos y que las funciones estadísticas globales queden reservadas exclusivamente para los administradores.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## 🛠️ Tecnologías Utilizadas
 
-## Code of Conduct
+- **Lenguaje:** PHP 8.3
+- **Framework:** [Laravel 12](https://laravel.com/)
+- **Autenticación:** [Laravel Passport](https://laravel.com/docs/11.x/passport) (OAuth2)
+- **Autorización:** [Spatie Laravel-Permission](https://spatie.be/docs/laravel-permission/v6/introduction) (Roles y Permisos)
+- **Base de Datos:** SQLite (por defecto para desarrollo/tests)
+- **Testing:** PHPUnit
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## 🚀 Paso a paso para probarlo
 
-## Security Vulnerabilities
+Sigue estos pasos para configurar y ejecutar el proyecto localmente desde un clon del repositorio:
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### 1. Requisitos previos
+Asegúrate de tener instalados:
+- PHP >= 8.2
+- Composer
+- SQLite (o tu motor de base de datos preferido)
 
-## License
+### 2. Clonación e Instalación
+Clonar el repositorio:
+```bash
+git clone <url-del-repositorio>
+cd Seven_private
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Instalar dependencias de PHP:
+```bash
+composer install
+```
+
+### 3. Configuración del entorno
+Crear el archivo .env:
+```bash
+cp .env.example .env
+```
+
+Generar la clave de la aplicación:
+```bash
+php artisan key:generate
+```
+
+
+### 4. Migraciones y Seeders
+Este paso es crucial, ya que los seeders crearán los roles necesarios (`admin` y `player`) y varios usuarios de prueba (como `admin@email.com` con password `12345678`).
+
+Ejecutar migraciones y poblar la base de datos (si no existe el archivo de base de datos, el sistema pedirá autorización para crearlo):
+```bash
+php artisan migrate --seed
+```
+
+### 5. Configuración de Passport
+Genera las claves y el cliente necesarios para la autenticación JWT:
+```bash
+php artisan passport:keys
+php artisan passport:client --personal --name="Personal Access Client" --no-interaction
+```
+
+### 6. Ejecución del servidor
+```bash
+php artisan serve
+```
+La API estará disponible en `http://localhost:8000`.
+
+## 📂 Credenciales de prueba (Seeders)
+Puedes usar estas cuentas para probar los diferentes roles:
+- **Admin:** `admin@email.com` / `12345678`
+- **Jugador:** `mortadelo@email.com` / `12345678`
+
+## 📂 Endpoints Principales
+
+### Acceso Público
+- `POST /api/players`: Registro de un nuevo jugador.
+- `POST /api/login`: Inicio de sesión (devuelve un token personal).
+
+### Usuarios Autenticados (con Token)
+- `POST /api/logout`: Cierre de sesión y revocación del token.
+- `PUT /api/players/{id}`: Modificar el nombre del jugador.
+
+### Solo Jugadores (`role:player`)
+- `POST /api/players/{id}/games`: Realizar un lanzamiento de dados.
+- `GET /api/players/{id}/games`: Listar todos los lanzamientos del jugador.
+- `DELETE /api/players/{id}/games`: Eliminar el historial de lanzamientos.
+- `GET /api/players/{id}/average`: Ver porcentaje medio de éxitos.
+
+### Solo Administradores (`role:admin`)
+- `GET /api/players`: Listado de todos los jugadores con su porcentaje medio de éxitos.
+- `GET /api/players/ranking`: Ranking general de jugadores.
+- `GET /api/players/ranking/winner`: Datos del jugador con mejor ranking.
+- `GET /api/players/ranking/loser`: Datos del jugador con peor ranking.
+
+## 🧪 Testing
+Para ejecutar la suite de pruebas y verificar que todo funciona correctamente:
+```bash
+php artisan test
+```
+
+## 📮 Guía para probar la API Seven con Postman
+
+👉 [Cómo probar la API Seven con Postman](POSTMAN.md)
