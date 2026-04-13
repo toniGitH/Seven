@@ -8,7 +8,7 @@
         "php": "^8.2",
         "firebase/php-jwt": "^7.0",
         "laravel/framework": "^12.0",
-        "laravel/passport": "^13.0",
+        "laravel/passport": "^13.7.1",
         "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.10",
         "spatie/laravel-permission": "^6.3"
